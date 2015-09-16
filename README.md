@@ -10,9 +10,24 @@ For each type of test, we run through it 5 times and perform 1000 operations eac
 5000 at the end. The app will record the execution time for each run and then average them together
 and display the results to you on the screen when finished.
 
-Test Overview:
-1) Realm inserts where we commit the transaction after each individual insertion completes
-2) Realm inserts where we commit the transaction after all individual insertions are complete
+### Test Overview ###
+1. Realm inserts where we commit the transaction after each individual insertion completes
+2. Realm inserts where we commit the transaction after all individual insertions are complete
+3. SQLite inserts where we commit the transaction after each individual insertion completes
+4. SQLite inserts where we commit a raw transaction after each individual insertion completes
+5. SQLite inserts where we commit the entire transaction after all individual transactions are
+complete
+
+### Results So Far ###
+From the completed tests, we can see that Realm is slightly faster than SQL when it comes to
+individual transactions, but SQL still has a small advantage when it comes to bulk transactions.
+However, both are very comparable to each other, there isn't much actual difference between the
+times on most runs.
+
+One very important thing to note, it look all of about 10 minutes to write the Realm tests because
+the database was so easy to create and work with. On the other hand, SQL tests took upwards of an
+hour and a half to write and are much messier to work with. As a developer, this greatly plays into
+my decision when choosing what type of database I want to work with on a daily basis.
 
 ---
 
