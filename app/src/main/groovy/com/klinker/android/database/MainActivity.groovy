@@ -23,11 +23,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.klinker.android.database.suite.insert.ContentProviderBulkInsertTestSuite
-import com.klinker.android.database.suite.insert.ContentProviderInsertTestSuite
-import com.klinker.android.database.suite.insert.RealmBulkInsertTestSuite
 import com.klinker.android.database.suite.insert.RealmInsertTestSuite
-import com.klinker.android.database.suite.insert.SQLInsertTestSuite
 import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
 
@@ -79,11 +75,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initializeTestSuites() {
         testSuites = []
-        testSuites << new RealmInsertTestSuite()
-        testSuites << new RealmBulkInsertTestSuite()
-        testSuites << new SQLInsertTestSuite()
-        testSuites << new ContentProviderInsertTestSuite()
-        testSuites << new ContentProviderBulkInsertTestSuite()
+        testSuites << new RealmInsertTestSuite(this)
     }
 
     /**

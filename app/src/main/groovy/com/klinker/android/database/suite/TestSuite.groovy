@@ -16,6 +16,7 @@
 
 package com.klinker.android.database.suite
 
+import android.content.Context
 import android.widget.TextView
 import groovy.transform.CompileStatic
 
@@ -25,16 +26,25 @@ import groovy.transform.CompileStatic
 @CompileStatic
 public abstract class TestSuite {
 
+    public static final Integer NUMBER_OF_TESTS = 5
+    public static final Integer OPERATIONS_PER_TEST = 1000
+
     /**
      * The results of all executed tests.
      */
     List<Long> results
 
     /**
+     * The context to run tests in.
+     */
+    Context context
+
+    /**
      * Initializes a new TestSuite.
      */
-    public TestSuite() {
-        results = []
+    public TestSuite(Context context) {
+        this.results = []
+        this.context = context
     }
 
     /**

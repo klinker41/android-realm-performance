@@ -16,6 +16,7 @@
 
 package com.klinker.android.database.suite.insert
 
+import android.content.Context
 import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
 
@@ -24,6 +25,10 @@ import groovy.transform.CompileStatic
  */
 @CompileStatic
 public class ContentProviderInsertTestSuite extends TestSuite {
+
+    public ContentProviderInsertTestSuite(Context context) {
+        super(context)
+    }
 
     @Override
     public void runTests(Closure onTestFinished) {
