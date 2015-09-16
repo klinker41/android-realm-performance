@@ -63,8 +63,12 @@ public abstract class TestSuite {
      * @param executionTime the execution time to insert.
      */
     public void printResults(TextView textView, long executionTime) {
-        textView.setText("${textView.getText()}\n${getTestDescription()}: ${executionTime} ms," +
-                " ${getAverage()} ms")
+        textView.setText("${textView.getText()}\n${getTestDescription()}: ${executionTime} ms")
+
+        if (results.size() == NUMBER_OF_TESTS) {
+            textView.setText("${textView.getText()}\n------------------------------------\n" +
+                    "${getTestDescription()} Average: ${getAverage()}\n\n")
+        }
     }
 
     /**

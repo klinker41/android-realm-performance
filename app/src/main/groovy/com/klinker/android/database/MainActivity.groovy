@@ -23,6 +23,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.klinker.android.database.suite.insert.RealmBulkInsertTestSuite
 import com.klinker.android.database.suite.insert.RealmInsertTestSuite
 import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeTestSuites() {
         testSuites = []
         testSuites << new RealmInsertTestSuite(this)
+        testSuites << new RealmBulkInsertTestSuite(this)
     }
 
     /**

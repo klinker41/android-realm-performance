@@ -17,8 +17,10 @@
 package com.klinker.android.database.suite.insert
 
 import android.content.Context
+import com.klinker.android.database.model.User
 import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
+import io.realm.Realm
 
 /**
  * A test suite which tests functionality against a realm and uses bulk inserts.
@@ -32,25 +34,29 @@ public class RealmBulkInsertTestSuite extends TestSuite {
 
     @Override
     public void runTests(Closure onTestFinished) {
-        Thread.sleep 1000l
-        results << 1000l
-        onTestFinished.call this, 1000l
+        NUMBER_OF_TESTS.times {
+            Realm.deleteRealmFile(context)
+            Realm realm = Realm.getInstance(context)
+            long startTime = System.currentTimeMillis()
+            realm.beginTransaction()
 
-        Thread.sleep 1200l
-        results << 1200l
-        onTestFinished.call this, 1200l
+            OPERATIONS_PER_TEST.times {
+                User user = realm.createObject(User.class)
+                user.setFirstName("Jake")
+                user.setLastName("Klinker")
+                user.setAge(21)
+            }
 
-        Thread.sleep 1100l
-        results << 1100l
-        onTestFinished.call this, 1100l
+            realm.commitTransaction()
+            realm.close()
 
-        Thread.sleep 900l
-        results << 900l
-        onTestFinished.call this, 900l
+            long result = System.currentTimeMillis() - startTime
+            results << result
+            onTestFinished this, result
 
-        Thread.sleep 1000l
-        results << 1000l
-        onTestFinished.call this, 1000l
+            // give the processor a break before starting again
+            Thread.sleep 2000
+        }
     }
 
     @Override
