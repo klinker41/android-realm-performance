@@ -26,6 +26,9 @@ import android.widget.TextView
 import com.klinker.android.database.suite.insert.RealmBulkInsertTestSuite
 import com.klinker.android.database.suite.insert.RealmInsertTestSuite
 import com.klinker.android.database.suite.TestSuite
+import com.klinker.android.database.suite.insert.SQLBulkInsertTestSuite
+import com.klinker.android.database.suite.insert.SQLRawInsertTestSuite
+import com.klinker.android.database.suite.insert.SQLInsertTestSuite
 import groovy.transform.CompileStatic
 
 /**
@@ -78,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
         testSuites = []
         testSuites << new RealmInsertTestSuite(this)
         testSuites << new RealmBulkInsertTestSuite(this)
+        testSuites << new SQLInsertTestSuite(this)
+        testSuites << new SQLRawInsertTestSuite(this)
+        testSuites << new SQLBulkInsertTestSuite(this)
     }
 
     /**

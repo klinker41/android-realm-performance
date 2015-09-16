@@ -17,19 +17,17 @@
 package com.klinker.android.database.suite.insert
 
 import android.content.Context
-import com.klinker.android.database.model.User
 import com.klinker.android.database.model.UserDataSource
 import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
-import io.realm.Realm
 
 /**
  * A test suite which tests functionality against raw SQL.
  */
 @CompileStatic
-public class SQLInsertTestSuite extends TestSuite {
+public class SQLRawInsertTestSuite extends TestSuite {
 
-    public SQLInsertTestSuite(Context context) {
+    public SQLRawInsertTestSuite(Context context) {
         super(context)
     }
 
@@ -43,7 +41,7 @@ public class SQLInsertTestSuite extends TestSuite {
             long startTime = System.currentTimeMillis()
 
             OPERATIONS_PER_TEST.times {
-                dataSource.createUser()
+                dataSource.createUserRaw()
             }
 
             dataSource.close()
@@ -59,7 +57,7 @@ public class SQLInsertTestSuite extends TestSuite {
 
     @Override
     public String getTestDescription() {
-        return "SQLite Insert"
+        return "SQLite Raw Insert"
     }
 
 }

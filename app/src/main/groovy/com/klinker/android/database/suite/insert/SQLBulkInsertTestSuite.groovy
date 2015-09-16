@@ -17,19 +17,17 @@
 package com.klinker.android.database.suite.insert
 
 import android.content.Context
-import com.klinker.android.database.model.User
 import com.klinker.android.database.model.UserDataSource
 import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
-import io.realm.Realm
 
 /**
- * A test suite which tests functionality against raw SQL.
+ * A test suite which tests functionality against raw SQL with a bulk insert.
  */
 @CompileStatic
-public class SQLInsertTestSuite extends TestSuite {
+public class SQLBulkInsertTestSuite extends TestSuite {
 
-    public SQLInsertTestSuite(Context context) {
+    public SQLBulkInsertTestSuite(Context context) {
         super(context)
     }
 
@@ -42,9 +40,7 @@ public class SQLInsertTestSuite extends TestSuite {
             dataSource.deleteDatabase()
             long startTime = System.currentTimeMillis()
 
-            OPERATIONS_PER_TEST.times {
-                dataSource.createUser()
-            }
+            dataSource.createUserBulk(OPERATIONS_PER_TEST)
 
             dataSource.close()
 
@@ -59,7 +55,7 @@ public class SQLInsertTestSuite extends TestSuite {
 
     @Override
     public String getTestDescription() {
-        return "SQLite Insert"
+        return "SQL Bulk Insert"
     }
 
 }
