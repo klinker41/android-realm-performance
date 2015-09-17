@@ -55,7 +55,7 @@ public class SQLBulkInsertTestSuite extends TestSuite {
 
     @Override
     public String getTestDescription() {
-        return "SQL Bulk Insert"
+        return "SQLite Bulk Insert"
     }
 
 }

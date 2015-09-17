@@ -67,7 +67,7 @@ public abstract class TestSuite {
 
         if (results.size() == NUMBER_OF_TESTS) {
             textView.setText("${textView.getText()}\n------------------------------------\n" +
-                    "${getTestDescription()} Average: ${getAverage()}\n\n")
+                    "${getTestDescription()} Average: ${getAverage()} ms\n\n")
         }
     }
 
