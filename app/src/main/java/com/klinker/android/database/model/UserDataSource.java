@@ -65,6 +65,15 @@ public class UserDataSource {
     }
 
     /**
+     * Updates all users with a new name in the database
+     */
+    public void updateUser(int id) {
+        ContentValues values = new ContentValues(3);
+        values.put(UserSQLiteHelper.COLUMN_FIRST_NAME, "Luke");
+        database.update(UserSQLiteHelper.TABLE_USER, values, "id=?", new String[]{String.valueOf(id)});
+    }
+
+    /**
      * Creates a user and inserts it into the database with raw sql.
      */
     public void createUserRaw() {
@@ -75,6 +84,20 @@ public class UserDataSource {
                     " (" + UserSQLiteHelper.COLUMN_FIRST_NAME + ", " +
                     UserSQLiteHelper.COLUMN_LAST_NAME + ", " + UserSQLiteHelper.COLUMN_AGE + ") " +
                     "VALUES (\"Jake\", \"Klinker\", 21);");
+            database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
+        }
+    }
+
+    /**
+     * Updates all users in the database with a new name with raw sql.
+     */
+    public void updateUserRaw(int id) {
+        database.beginTransaction();
+
+        try {
+            database.execSQL("UPDATE " + UserSQLiteHelper.TABLE_USER + " SET first_name = 'Luke' WHERE id = " + id);
             database.setTransactionSuccessful();
         } finally {
             database.endTransaction();
@@ -95,6 +118,34 @@ public class UserDataSource {
                     "VALUES (\"Jake\", \"Klinker\", 21);");
         }
         
+        database.setTransactionSuccessful();
+        database.endTransaction();
+    }
+
+    /**
+     * Creates a bulk updates for all users.
+     */
+    public void updateUsersBulk() {
+        database.beginTransaction();
+
+        try {
+            database.execSQL("UPDATE " + UserSQLiteHelper.TABLE_USER + " SET first_name = 'Luke'");
+            database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
+        }
+    }
+
+    /**
+     * Creates a bulk updates for all users.
+     */
+    public void updateUsersBulkIndividual(int number) {
+        database.beginTransaction();
+
+        for (int i = 0; i < number; i++) {
+            database.execSQL("UPDATE " + UserSQLiteHelper.TABLE_USER + " SET first_name = 'Luke' WHERE id = " + i);
+        }
+
         database.setTransactionSuccessful();
         database.endTransaction();
     }

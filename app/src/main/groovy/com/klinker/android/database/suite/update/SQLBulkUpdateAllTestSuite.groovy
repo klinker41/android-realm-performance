@@ -22,12 +22,12 @@ import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
 
 /**
- * A test suite which tests functionality against raw SQL.
+ * A test suite which tests functionality against raw SQL with a bulk update.
  */
 @CompileStatic
-public class SQLRawUpdateTestSuite extends TestSuite {
+public class SQLBulkUpdateAllTestSuite extends TestSuite {
 
-    public SQLRawUpdateTestSuite(Context context) {
+    public SQLBulkUpdateAllTestSuite(Context context) {
         super(context)
     }
 
@@ -40,9 +40,7 @@ public class SQLRawUpdateTestSuite extends TestSuite {
             dataSource.deleteDatabase()
             long startTime = System.currentTimeMillis()
 
-            OPERATIONS_PER_TEST.times { i ->
-                dataSource.updateUserRaw(i)
-            }
+            dataSource.updateUsersBulk()
 
             dataSource.close()
 
@@ -57,7 +55,7 @@ public class SQLRawUpdateTestSuite extends TestSuite {
 
     @Override
     public String getTestDescription() {
-        return "SQLite Raw Update"
+        return "SQLite Bulk Update All"
     }
 
 }

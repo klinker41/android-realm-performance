@@ -45,15 +45,17 @@ public class UserSQLiteHelper extends SQLiteOpenHelper {
      */
     public static final String COLUMN_AGE = "age";
 
+    public static final String COLUMN_ID = "id";
+
     private static final String DATABASE_NAME = "database.db";
     private static final int DATABASE_VERSION = 1;
-
 
     private static final String DATABASE_CREATE = "create table "
             + TABLE_USER
             + "(" + COLUMN_FIRST_NAME + " text not null, "
             + COLUMN_LAST_NAME + " text not null, "
-            + COLUMN_AGE + " integer not null);";
+            + COLUMN_AGE + " integer not null,"
+            + COLUMN_ID + " integer primary key autoincrement);";
 
     /**
      * Construct a new database helper.

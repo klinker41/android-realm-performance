@@ -40,8 +40,8 @@ public class SQLUpdateTestSuite extends TestSuite {
             dataSource.deleteDatabase()
             long startTime = System.currentTimeMillis()
 
-            OPERATIONS_PER_TEST.times {
-                dataSource.createUser()
+            OPERATIONS_PER_TEST.times { i ->
+                dataSource.updateUser(i)
             }
 
             dataSource.close()
@@ -57,7 +57,7 @@ public class SQLUpdateTestSuite extends TestSuite {
 
     @Override
     public String getTestDescription() {
-        return "SQLite Insert"
+        return "SQLite Update"
     }
 
 }

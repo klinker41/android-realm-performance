@@ -31,6 +31,10 @@ import com.klinker.android.database.suite.insert.SQLRawInsertTestSuite
 import com.klinker.android.database.suite.insert.SQLInsertTestSuite
 import com.klinker.android.database.suite.update.RealmBulkUpdateTestSuite
 import com.klinker.android.database.suite.update.RealmUpdateTestSuite
+import com.klinker.android.database.suite.update.SQLBulkUpdateAllTestSuite
+import com.klinker.android.database.suite.update.SQLBulkUpdateIndividualTestSuite
+import com.klinker.android.database.suite.update.SQLRawUpdateTestSuite
+import com.klinker.android.database.suite.update.SQLUpdateTestSuite
 import groovy.transform.CompileStatic
 
 /**
@@ -81,13 +85,17 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initializeTestSuites() {
         testSuites = []
-        //testSuites << new RealmInsertTestSuite(this)
+        testSuites << new RealmInsertTestSuite(this)
         testSuites << new RealmBulkInsertTestSuite(this)
-        //testSuites << new SQLInsertTestSuite(this)
-        //testSuites << new SQLRawInsertTestSuite(this)
-        //testSuites << new SQLBulkInsertTestSuite(this)
+        testSuites << new SQLInsertTestSuite(this)
+        testSuites << new SQLRawInsertTestSuite(this)
+        testSuites << new SQLBulkInsertTestSuite(this)
         testSuites << new RealmUpdateTestSuite(this)
         testSuites << new RealmBulkUpdateTestSuite(this)
+        testSuites << new SQLUpdateTestSuite(this)
+        testSuites << new SQLRawUpdateTestSuite(this)
+        testSuites << new SQLBulkUpdateAllTestSuite(this)
+        testSuites << new SQLBulkUpdateIndividualTestSuite(this)
     }
 
     /**
