@@ -14,37 +14,39 @@
  * limitations under the License.
  */
 
-package com.klinker.android.database.suite.insert
+package com.klinker.android.database.suite.update
 
 import android.content.Context
 import com.klinker.android.database.model.User
 import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
 import io.realm.Realm
+import io.realm.RealmList
+import io.realm.RealmResults
 
 /**
- * A test suite which tests functionality against a realm and uses bulk inserts.
+ * A test suite which tests functionality against a realm and uses bulk updates.
  */
 @CompileStatic
-public class RealmBulkInsertTestSuite extends TestSuite {
+public class RealmBulkUpdateTestSuite extends TestSuite {
 
-    public RealmBulkInsertTestSuite(Context context) {
+    public RealmBulkUpdateTestSuite(Context context) {
         super(context)
     }
 
     @Override
     public void runTests(Closure onTestFinished) {
         NUMBER_OF_TESTS.times {
-            Realm.deleteRealmFile(context)
             Realm realm = Realm.getInstance(context)
             long startTime = System.currentTimeMillis()
             realm.beginTransaction()
 
-            OPERATIONS_PER_TEST.times { i ->
-                User user = realm.createObject(User.class)
-                user.setFirstName("Jake")
-                user.setLastName("Klinker")
-                user.setAge(21)
+            RealmResults<User> users = realm.where(User.class).findAll()
+
+            // currently, there is a bug in realm that doesn't allow me to use iterators here, it
+            // instead needs to be implemented as a normal for loop. Issue #640 on github.
+            for (int i = 0; i < users.size(); i++) {
+                users.get(i).firstName = 'Luke'
             }
 
             realm.commitTransaction()
@@ -61,7 +63,7 @@ public class RealmBulkInsertTestSuite extends TestSuite {
 
     @Override
     public String getTestDescription() {
-        return "Realm Bulk Insert"
+        return "Realm Bulk Update"
     }
 
 }

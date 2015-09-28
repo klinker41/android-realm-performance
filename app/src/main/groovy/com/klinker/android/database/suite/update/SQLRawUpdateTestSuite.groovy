@@ -14,41 +14,37 @@
  * limitations under the License.
  */
 
-package com.klinker.android.database.suite.insert
+package com.klinker.android.database.suite.update
 
 import android.content.Context
-import com.klinker.android.database.model.User
+import com.klinker.android.database.model.UserDataSource
 import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
-import io.realm.Realm
 
 /**
- * A test suite which tests functionality against a realm and uses bulk inserts.
+ * A test suite which tests functionality against raw SQL.
  */
 @CompileStatic
-public class RealmBulkInsertTestSuite extends TestSuite {
+public class SQLRawUpdateTestSuite extends TestSuite {
 
-    public RealmBulkInsertTestSuite(Context context) {
+    public SQLRawUpdateTestSuite(Context context) {
         super(context)
     }
 
     @Override
     public void runTests(Closure onTestFinished) {
-        NUMBER_OF_TESTS.times {
-            Realm.deleteRealmFile(context)
-            Realm realm = Realm.getInstance(context)
-            long startTime = System.currentTimeMillis()
-            realm.beginTransaction()
+        UserDataSource dataSource = new UserDataSource(context)
 
-            OPERATIONS_PER_TEST.times { i ->
-                User user = realm.createObject(User.class)
-                user.setFirstName("Jake")
-                user.setLastName("Klinker")
-                user.setAge(21)
+        NUMBER_OF_TESTS.times {
+            dataSource.open()
+            dataSource.deleteDatabase()
+            long startTime = System.currentTimeMillis()
+
+            OPERATIONS_PER_TEST.times {
+                dataSource.createUserRaw()
             }
 
-            realm.commitTransaction()
-            realm.close()
+            dataSource.close()
 
             long result = System.currentTimeMillis() - startTime
             results << result
@@ -61,7 +57,7 @@ public class RealmBulkInsertTestSuite extends TestSuite {
 
     @Override
     public String getTestDescription() {
-        return "Realm Bulk Insert"
+        return "SQLite Raw Insert"
     }
 
 }

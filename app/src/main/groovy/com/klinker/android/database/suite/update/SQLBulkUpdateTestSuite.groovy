@@ -14,48 +14,48 @@
  * limitations under the License.
  */
 
-package com.klinker.android.database.suite.insert
+package com.klinker.android.database.suite.update
 
 import android.content.Context
+import com.klinker.android.database.model.UserDataSource
 import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
 
 /**
- * A test suite which tests functionality against a content provider using bulk inserts.
+ * A test suite which tests functionality against raw SQL with a bulk insert.
  */
 @CompileStatic
-public class ContentProviderBulkInsertTestSuite extends TestSuite {
+public class SQLBulkUpdateTestSuite extends TestSuite {
 
-    public ContentProviderBulkInsertTestSuite(Context context) {
+    public SQLBulkUpdateTestSuite(Context context) {
         super(context)
     }
 
     @Override
     public void runTests(Closure onTestFinished) {
-        Thread.sleep 1000l
-        results << 1000l
-        onTestFinished.call this, 1000l
+        UserDataSource dataSource = new UserDataSource(context)
 
-        Thread.sleep 1200l
-        results << 1200l
-        onTestFinished.call this, 1200l
+        NUMBER_OF_TESTS.times {
+            dataSource.open()
+            dataSource.deleteDatabase()
+            long startTime = System.currentTimeMillis()
 
-        Thread.sleep 1100l
-        results << 1100l
-        onTestFinished.call this, 1100l
+            dataSource.createUserBulk(OPERATIONS_PER_TEST)
 
-        Thread.sleep 900l
-        results << 900l
-        onTestFinished.call this, 900l
+            dataSource.close()
 
-        Thread.sleep 1000l
-        results << 1000l
-        onTestFinished.call this, 1000l
+            long result = System.currentTimeMillis() - startTime
+            results << result
+            onTestFinished this, result
+
+            // give the processor a break before starting again
+            Thread.sleep 2000
+        }
     }
 
     @Override
     public String getTestDescription() {
-        return "Content Provider Bulk Insert"
+        return "SQLite Bulk Insert"
     }
 
 }

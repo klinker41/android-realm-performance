@@ -14,40 +14,40 @@
  * limitations under the License.
  */
 
-package com.klinker.android.database.suite.insert
+package com.klinker.android.database.suite.update
 
 import android.content.Context
 import com.klinker.android.database.model.User
 import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
 import io.realm.Realm
+import io.realm.RealmResults
 
 /**
- * A test suite which tests functionality against a realm and uses bulk inserts.
+ * A test suite which tests functionality against a realm.
  */
 @CompileStatic
-public class RealmBulkInsertTestSuite extends TestSuite {
+public class RealmUpdateTestSuite extends TestSuite {
 
-    public RealmBulkInsertTestSuite(Context context) {
+    public RealmUpdateTestSuite(Context context) {
         super(context)
     }
 
     @Override
     public void runTests(Closure onTestFinished) {
         NUMBER_OF_TESTS.times {
-            Realm.deleteRealmFile(context)
             Realm realm = Realm.getInstance(context)
             long startTime = System.currentTimeMillis()
-            realm.beginTransaction()
 
+            // this is actually a pretty poor test... it is testing much more the speed of the
+            // begin and commit ~5000 times than the insert, which doesn't do much good. Also,
+            // the query takes time.
             OPERATIONS_PER_TEST.times { i ->
-                User user = realm.createObject(User.class)
-                user.setFirstName("Jake")
-                user.setLastName("Klinker")
-                user.setAge(21)
+                realm.beginTransaction()
+                realm.where(User.class).findFirst().firstName = i % 2 == 0 ? 'Aaron' : 'Luke'
+                realm.commitTransaction()
             }
 
-            realm.commitTransaction()
             realm.close()
 
             long result = System.currentTimeMillis() - startTime
@@ -61,7 +61,7 @@ public class RealmBulkInsertTestSuite extends TestSuite {
 
     @Override
     public String getTestDescription() {
-        return "Realm Bulk Insert"
+        return "Realm Update"
     }
 
 }

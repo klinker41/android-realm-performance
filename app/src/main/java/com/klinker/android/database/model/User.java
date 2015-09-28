@@ -17,6 +17,7 @@
 package com.klinker.android.database.model;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * The Realm object which holds information about a user.
