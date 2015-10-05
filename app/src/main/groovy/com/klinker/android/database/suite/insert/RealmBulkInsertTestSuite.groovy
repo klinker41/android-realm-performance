@@ -53,9 +53,6 @@ public class RealmBulkInsertTestSuite extends TestSuite {
             long result = System.currentTimeMillis() - startTime
             results << result
             onTestFinished this, result
-
-            // give the processor a break before starting again
-            Thread.sleep 2000
         }
     }
 

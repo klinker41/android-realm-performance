@@ -29,6 +29,8 @@ import com.klinker.android.database.suite.TestSuite
 import com.klinker.android.database.suite.insert.SQLBulkInsertTestSuite
 import com.klinker.android.database.suite.insert.SQLRawInsertTestSuite
 import com.klinker.android.database.suite.insert.SQLInsertTestSuite
+import com.klinker.android.database.suite.query.RealmQueryTestSuite
+import com.klinker.android.database.suite.query.SQLQueryTestSuite
 import com.klinker.android.database.suite.update.RealmBulkUpdateTestSuite
 import com.klinker.android.database.suite.update.RealmUpdateTestSuite
 import com.klinker.android.database.suite.update.SQLBulkUpdateAllTestSuite
@@ -96,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         testSuites << new SQLRawUpdateTestSuite(this)
         testSuites << new SQLBulkUpdateAllTestSuite(this)
         testSuites << new SQLBulkUpdateIndividualTestSuite(this)
+        testSuites << new RealmQueryTestSuite(this)
+        testSuites << new SQLQueryTestSuite(this)
     }
 
     /**

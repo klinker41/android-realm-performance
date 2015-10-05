@@ -45,7 +45,20 @@ public class UserSQLiteHelper extends SQLiteOpenHelper {
      */
     public static final String COLUMN_AGE = "age";
 
+    /**
+     * The ID column.
+     */
     public static final String COLUMN_ID = "id";
+
+    /**
+     * A projection of all columns.
+     */
+    public static final String[] ALL_COLUMNS = {
+            COLUMN_ID,
+            COLUMN_FIRST_NAME,
+            COLUMN_LAST_NAME,
+            COLUMN_AGE
+    };
 
     private static final String DATABASE_NAME = "database.db";
     private static final int DATABASE_VERSION = 1;

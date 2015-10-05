@@ -18,6 +18,7 @@ package com.klinker.android.database.model;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
@@ -148,6 +149,15 @@ public class UserDataSource {
 
         database.setTransactionSuccessful();
         database.endTransaction();
+    }
+
+    /**
+     * Find all columns in the database.
+     * @return a cursor with all data in the user table.
+     */
+    public Cursor findAll() {
+        return database.query(UserSQLiteHelper.TABLE_USER, UserSQLiteHelper.ALL_COLUMNS,
+                null, null, null, null, null);
     }
 
     /**

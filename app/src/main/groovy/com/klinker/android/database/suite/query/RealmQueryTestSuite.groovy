@@ -14,49 +14,50 @@
  * limitations under the License.
  */
 
-package com.klinker.android.database.suite.insert
+package com.klinker.android.database.suite.query
 
 import android.content.Context
+import android.util.Log
 import com.klinker.android.database.model.User
-import com.klinker.android.database.model.UserDataSource
 import com.klinker.android.database.suite.TestSuite
 import groovy.transform.CompileStatic
 import io.realm.Realm
+import io.realm.RealmResults
 
 /**
- * A test suite which tests functionality against raw SQL.
+ * A test suite which tests functionality against a realm.
  */
 @CompileStatic
-public class SQLInsertTestSuite extends TestSuite {
+public class RealmQueryTestSuite extends TestSuite {
 
-    public SQLInsertTestSuite(Context context) {
+    private static final String TAG = "RealmQueryTestSuite"
+
+    public RealmQueryTestSuite(Context context) {
         super(context)
     }
 
     @Override
     public void runTests(Closure onTestFinished) {
-        UserDataSource dataSource = new UserDataSource(context)
+        Realm realm = Realm.getInstance(context)
 
         NUMBER_OF_TESTS.times {
-            dataSource.open()
-            dataSource.deleteDatabase()
             long startTime = System.currentTimeMillis()
 
-            OPERATIONS_PER_TEST.times {
-                dataSource.createUser()
-            }
-
-            dataSource.close()
+            RealmResults<User> users = realm.where(User.class).findAll()
+            Log.v(TAG, "Number of results: ${users.size()}")
 
             long result = System.currentTimeMillis() - startTime
             results << result
+
             onTestFinished this, result
         }
+
+        realm.close()
     }
 
     @Override
     public String getTestDescription() {
-        return "SQLite Insert"
+        return "Realm Query"
     }
 
 }

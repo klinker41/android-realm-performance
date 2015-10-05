@@ -37,7 +37,6 @@ public class SQLRawUpdateTestSuite extends TestSuite {
 
         NUMBER_OF_TESTS.times {
             dataSource.open()
-            dataSource.deleteDatabase()
             long startTime = System.currentTimeMillis()
 
             OPERATIONS_PER_TEST.times { i ->
@@ -49,9 +48,6 @@ public class SQLRawUpdateTestSuite extends TestSuite {
             long result = System.currentTimeMillis() - startTime
             results << result
             onTestFinished this, result
-
-            // give the processor a break before starting again
-            Thread.sleep 2000
         }
     }
 
