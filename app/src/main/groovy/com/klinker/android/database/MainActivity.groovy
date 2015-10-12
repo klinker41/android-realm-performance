@@ -23,6 +23,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.klinker.android.database.suite.delete.RealmBulkDeleteTestSuite
+import com.klinker.android.database.suite.delete.RealmDeleteTestSuite
+import com.klinker.android.database.suite.delete.SQLBulkDeleteTestSuite
+import com.klinker.android.database.suite.delete.SQLDeleteTestSuite
+import com.klinker.android.database.suite.delete.SQLRawDeleteTestSuite
 import com.klinker.android.database.suite.insert.RealmBulkInsertTestSuite
 import com.klinker.android.database.suite.insert.RealmInsertTestSuite
 import com.klinker.android.database.suite.TestSuite
@@ -87,19 +92,24 @@ public class MainActivity extends AppCompatActivity {
      */
     private void initializeTestSuites() {
         testSuites = []
-        testSuites << new RealmInsertTestSuite(this)
-        testSuites << new RealmBulkInsertTestSuite(this)
-        testSuites << new SQLInsertTestSuite(this)
-        testSuites << new SQLRawInsertTestSuite(this)
-        testSuites << new SQLBulkInsertTestSuite(this)
-        testSuites << new RealmUpdateTestSuite(this)
-        testSuites << new RealmBulkUpdateTestSuite(this)
-        testSuites << new SQLUpdateTestSuite(this)
-        testSuites << new SQLRawUpdateTestSuite(this)
-        testSuites << new SQLBulkUpdateAllTestSuite(this)
-        testSuites << new SQLBulkUpdateIndividualTestSuite(this)
-        testSuites << new RealmQueryTestSuite(this)
-        testSuites << new SQLQueryTestSuite(this)
+//        testSuites << new RealmInsertTestSuite(this)
+//        testSuites << new RealmBulkInsertTestSuite(this)
+//        testSuites << new SQLInsertTestSuite(this)
+//        testSuites << new SQLRawInsertTestSuite(this)
+//        testSuites << new SQLBulkInsertTestSuite(this)
+//        testSuites << new RealmUpdateTestSuite(this)
+//        testSuites << new RealmBulkUpdateTestSuite(this)
+//        testSuites << new SQLUpdateTestSuite(this)
+//        testSuites << new SQLRawUpdateTestSuite(this)
+//        testSuites << new SQLBulkUpdateAllTestSuite(this)
+//        testSuites << new SQLBulkUpdateIndividualTestSuite(this)
+//        testSuites << new RealmQueryTestSuite(this)
+//        testSuites << new SQLQueryTestSuite(this)
+        testSuites << new RealmDeleteTestSuite(this)
+        testSuites << new RealmBulkDeleteTestSuite(this)
+        testSuites << new SQLDeleteTestSuite(this)
+        testSuites << new SQLBulkDeleteTestSuite(this)
+        testSuites << new SQLRawDeleteTestSuite(this)
     }
 
     /**

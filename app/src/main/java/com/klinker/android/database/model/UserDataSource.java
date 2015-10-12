@@ -152,6 +152,40 @@ public class UserDataSource {
     }
 
     /**
+     * Deletes all users in the database individually.
+     */
+    public void deleteUsers(Cursor users) {
+        users.moveToFirst();
+
+        do {
+            database.delete(UserSQLiteHelper.TABLE_USER, "id=?",
+                    new String[] {users.getString(users.getColumnIndex(UserSQLiteHelper.COLUMN_ID))}
+            );
+        } while (users.moveToNext());
+    }
+
+    /**
+     * Deletes all users in the database using a bulk transaction.
+     */
+    public void deleteUsersBulk() {
+        database.delete(UserSQLiteHelper.TABLE_USER, null, null);
+    }
+
+    /**
+     * Deletes all users in the database using raw sql.
+     */
+    public void deleteUsersRaw() {
+        database.beginTransaction();
+
+        try {
+            database.execSQL("DELETE FROM " + UserSQLiteHelper.TABLE_USER);
+            database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
+        }
+    }
+
+    /**
      * Find all columns in the database.
      * @return a cursor with all data in the user table.
      */
